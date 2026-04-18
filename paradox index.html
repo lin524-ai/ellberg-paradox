@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decision-Making Study</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-2: #eef4ff;
+      --card: rgba(255,255,255,0.82);
+      --card-strong: rgba(255,255,255,0.94);
+      --text: #172033;
+      --muted: #667085;
+      --border: rgba(148, 163, 184, 0.22);
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: rgba(37,99,235,0.10);
+      --accent: #7c3aed;
+      --success: #059669;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+      --shadow-soft: 0 10px 30px rgba(37, 99, 235, 0.10);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96,165,250,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(124,58,237,0.12), transparent 28%),
+        linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 36px 20px 48px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      margin-top: 24px;
+      animation: fadeIn 0.45s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 5px;
+      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 45%, #8b5cf6 100%);
+      opacity: 0.95;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+      50% { box-shadow: 0 0 24px rgba(37,99,235,0.18); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatBall {
+      0% { transform: translateY(0px) scale(1); }
+      25% { transform: translateY(-2px) scale(1.01); }
+      50% { transform: translateY(1px) scale(0.995); }
+      75% { transform: translateY(-1px) scale(1.01); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+    @keyframes swayJar {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(-0.35deg); }
+      50% { transform: rotate(0.25deg); }
+      75% { transform: rotate(-0.2deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes shimmerGlass {
+      0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+      20% { opacity: 0.22; }
+      60% { opacity: 0.12; }
+      100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+    }
+
+    @keyframes choicePulse {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes drawBallPop {
+      0% { transform: translate(-50%, 18px) scale(0.7); opacity: 0; }
+      45% { transform: translate(-50%, -8px) scale(1.08); opacity: 1; }
+      70% { transform: translate(-50%, -2px) scale(0.98); opacity: 1; }
+      100% { transform: translate(-50%, 0px) scale(1); opacity: 1; }
+    }
+
+    @keyframes resultGlow {
+      0% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+      50% { box-shadow: 0 0 26px rgba(37,99,235,0.20); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+    }
+      40% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      color: #22304a;
+    }
+
+    p, li {
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    strong {
+      color: #12213f;
+    }
+
+    .muted { color: var(--muted); }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: #21304b;
+    }
+    .hidden { display: none; }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 20px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .primary {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 55%, #7c3aed 100%);
+      color: white;
+    }
+
+    .primary:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #6d28d9 100%);
+      box-shadow: 0 14px 28px rgba(37,99,235,0.24);
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.9);
+      color: #1f2937;
+      border: 1px solid rgba(148,163,184,0.22);
+    }
+
+    .danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .option-card {
+      border: 1.5px solid rgba(148,163,184,0.24);
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 220px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.99) 0%, rgba(248,250,252,0.94) 100%);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.18s ease, background 0.2s ease;
+      cursor: pointer;
+      animation: slideUp 0.35s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .option-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 6px;
+      background: linear-gradient(90deg, rgba(37,99,235,0.95), rgba(96,165,250,0.95));
+      opacity: 0.9;
+    }
+
+    .option-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -55% auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.10) 0%, rgba(37,99,235,0) 70%);
+      pointer-events: none;
+    }
+
+    .option-card:hover {
+      border-color: rgba(37,99,235,0.55);
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-4px);
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(239,246,255,0.94) 100%);
+    }
+
+    .option-card.selected {
+      border-color: var(--primary);
+      background: linear-gradient(180deg, rgba(239,246,255,1) 0%, rgba(224,231,255,0.85) 100%);
+      animation: pulseGlow 0.45s ease, choicePulse 0.35s ease;
+      box-shadow: 0 12px 34px rgba(37,99,235,0.18);
+    }
+
+    .option-title {
+      font-size: 1.24rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .option-subtitle {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .decision-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 8px 0 14px;
+      color: #0f172a;
+    }
+
+    .option-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .option-hint {
+      color: #64748b;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 0.86rem;
+      padding: 7px 11px;
+      border-radius: 999px;
+      margin-top: 10px;
+      background: rgba(37,99,235,0.08);
+      color: #1d4ed8;
+      font-weight: 800;
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+
+    .label.ambiguous {
+      background: rgba(124,58,237,0.08);
+      color: #6d28d9;
+      border-color: rgba(124,58,237,0.12);
+    }
+
+    .jar-visual {
+      margin: 18px 0 10px;
+      border: 1px solid rgba(148,163,184,0.18);
+      border-radius: 28px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,250,252,0.90) 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jar-visual::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.55), rgba(255,255,255,0));
+      animation: shimmerGlass 4.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .jar-shell {
+      width: min(360px, 88%);
+      margin: 18px auto 8px;
+      border-radius: 46px 46px 34px 34px;
+      padding: 18px 18px 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(219,234,254,0.30) 100%);
+      border: 2px solid rgba(148,163,184,0.28);
+      box-shadow: inset 0 10px 28px rgba(255,255,255,0.45), 0 18px 36px rgba(15,23,42,0.08);
+      position: relative;
+      animation: swayJar 5.5s ease-in-out infinite;
+      transform-origin: 50% 14%;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .jar-shell::before {
+      content: "";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 42%;
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(203,213,225,0.92));
+      border: 1px solid rgba(148,163,184,0.25);
+      box-shadow: 0 4px 10px rgba(15,23,42,0.07);
+    }
+
+    .jar-shell::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      width: 22%;
+      height: 62%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.02));
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .balls {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ball {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.32), 0 3px 8px rgba(15,23,42,0.08);
+      animation: fadeIn 0.35s ease, floatBall 2.8s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .red {
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.28) 18%, rgba(255,255,255,0) 19%), linear-gradient(135deg, #fb7185 0%, #ef4444 60%, #dc2626 100%);
+    }
+
+    .mixed {
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.28) 18%, rgba(255,255,255,0) 19%), linear-gradient(135deg, #111827 0%, #111827 50%, #facc15 50%, #facc15 100%);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.28);
+      font-size: 1rem;
+      margin-top: 8px;
+      background: rgba(255,255,255,0.88);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: rgba(37,99,235,0.48);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+    }
+
+    input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--primary);
+      transform: scale(1.08);
+    }
+
+    .result-box {
+      border: 1px solid rgba(5,150,105,0.16);
+      background: linear-gradient(180deg, rgba(236,253,245,0.96) 0%, rgba(209,250,229,0.86) 100%);
+      padding: 18px;
+      border-radius: 18px;
+      margin-top: 18px;
+      box-shadow: 0 10px 24px rgba(5,150,105,0.08);
+    }
+
+    .mini { font-size: 0.92rem; }
+
+    .footer-note {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148,163,184,0.14);
+    }
+
+    .progress-wrap {
+      margin: 16px 0 8px;
+      padding: 14px 16px;
+      border: 1px solid rgba(148,163,184,0.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(226,232,240,0.95);
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(15,23,42,0.08);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+      transition: width 0.35s ease;
+    }
+
+    #resultsChart {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .trial-badge {
+      display: inline-block;
+      padding: 8px 13px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(124,58,237,0.10) 100%);
+      color: #3730a3;
+      border: 1px solid rgba(99,102,241,0.14);
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      min-height: 28px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .micro-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .micro-card {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92));
+      border: 1px solid rgba(148,163,184,0.16);
+      box-shadow: 0 8px 18px rgba(15,23,42,0.05);
+    }
+
+    .micro-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .micro-value {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+    }
+
+    .choice-meter {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239,246,255,0.90));
+      border: 1px solid rgba(148,163,184,0.16);
+    }
+
+    .choice-meter-track {
+      position: relative;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(37,99,235,0.12), rgba(124,58,237,0.12));
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .choice-meter-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 50%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 55%, #8b5cf6 100%);
+      transition: width 0.35s ease;
+      box-shadow: 0 8px 18px rgba(37,99,235,0.18);
+    }
+
+    .choice-meter-scale {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .draw-stage {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239,246,255,0.90));
+      border: 1px solid rgba(148,163,184,0.16);
+      position: relative;
+      min-height: 126px;
+      overflow: hidden;
+    }
+
+    .draw-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .draw-lane {
+      position: relative;
+      height: 72px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(226,232,240,0.42), rgba(241,245,249,0.95));
+      border: 1px solid rgba(148,163,184,0.16);
+      overflow: hidden;
+    }
+
+    .draw-ball {
+      position: absolute;
+      left: 50%;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      opacity: 0;
+      transform: translate(-50%, 18px) scale(0.7);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.35), 0 8px 18px rgba(15,23,42,0.14);
+    }
+
+    .draw-ball.show {
+      opacity: 1;
+      animation: drawBallPop 0.42s ease forwards, resultGlow 0.6s ease;
+    }
+
+    .draw-ball.red {
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.28) 18%, rgba(255,255,255,0) 19%), linear-gradient(135deg, #fb7185 0%, #ef4444 60%, #dc2626 100%);
+    }
+
+    .draw-ball.dark {
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.24) 18%, rgba(255,255,255,0) 19%), linear-gradient(135deg, #374151 0%, #111827 100%);
+    }
+
+    .draw-caption {
+      margin-top: 12px;
+      color: #475569;
+      font-weight: 700;
+      min-height: 24px;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 16px 12px 28px; }
+      .card { padding: 22px 18px; border-radius: 20px; }
+      .balls { gap: 5px; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.35rem; }
+      .progress-meta { flex-direction: column; align-items: flex-start; }
+      .btn-row { flex-direction: column; }
+      button { width: 100%; }
+    }
+      .card { padding: 18px; }
+      .balls { gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="welcome" class="card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:6px;">
+        <div>
+          <div style="display:inline-block; padding:7px 12px; border-radius:999px; background:rgba(37,99,235,0.08); color:#1d4ed8; font-weight:800; font-size:0.85rem; border:1px solid rgba(37,99,235,0.12); margin-bottom:12px;">Behavioral Economics Study</div>
+      <h1>Decision-Making Study</h1>
+      <p class="muted" style="margin-top:0; font-size:1rem;">University of Wisconsin–Madison</p>
+        </div>
+        <div style="min-width:180px; flex:0 0 auto; padding:14px 16px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,0.88), rgba(239,246,255,0.88)); border:1px solid rgba(148,163,184,0.16); box-shadow:0 8px 20px rgba(37,99,235,0.06);">
+          <div style="font-size:0.82rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Session Info</div>
+          <div style="margin-top:8px; font-weight:800; color:#172033;">10 decision trials</div>
+          <div style="margin-top:4px; color:#667085; font-size:0.95rem;">Approx. 3–5 minutes</div>
+        </div>
+      </div>
+      <p>
+        You are invited to participate in a short research study about decision-making under uncertainty.
+        This study is designed for undergraduate students and takes about 3–5 minutes to complete.
+      </p>
+
+      <div style="margin:18px 0 22px; padding:20px; border-radius:20px; background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239,246,255,0.88)); border:1px solid rgba(148,163,184,0.18); box-shadow:0 10px 24px rgba(37,99,235,0.07);">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px;">
+          <h3 style="margin:0;">Optional Video: What Is the Ellsberg Paradox?</h3>
+          <span style="display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(220,38,38,0.08); color:#b91c1c; font-weight:800; font-size:0.82rem; border:1px solid rgba(220,38,38,0.12);">YouTube explainer</span>
+        </div>
+        <p class="muted" style="margin-top:0; margin-bottom:14px;">You can watch this short explanation before starting, or skip it and begin the study right away.</p>
+        <div style="display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:18px; border-radius:18px; background:linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.92) 100%); border:1px solid rgba(148,163,184,0.16);">
+          <div style="flex:1 1 320px; min-width:260px;">
+            <div style="font-size:1.05rem; font-weight:800; color:#172033; margin-bottom:6px;">Watch the explanation on YouTube</div>
+            <div style="color:#667085; line-height:1.65;">This opens the original video in a new tab, which is more reliable than embedding it directly in the page.</div>
+          </div>
+          <div style="flex:0 0 auto;">
+            <a href="https://www.youtube.com/watch?v=unrTG1ehX8E" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; justify-content:center; padding:13px 18px; border-radius:14px; text-decoration:none; font-weight:800; letter-spacing:0.01em; color:white; background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%); box-shadow:0 12px 24px rgba(220,38,38,0.20);">
+              Watch on YouTube
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <h3>What this study is about</h3>
+      <p>
+        In this study, you will complete <strong>10 decision trials</strong>. On each trial, you will read a brief gambling scenario and choose between two options.
+        One option involves a <strong>known probability</strong>, and the other involves an <strong>ambiguous probability</strong>.
+      </p>
+
+      <h3>Risks and voluntary participation</h3>
+      <ul>
+        <li>There are no major risks expected beyond those of everyday decision-making tasks.</li>
+        <li>Some participants may feel mild discomfort when thinking about gains or losses.</li>
+        <li>Your participation is completely voluntary.</li>
+        <li>You may stop at any time without penalty.</li>
+      </ul>
+
+      <label for="participantId"><strong>Participant ID</strong> (optional)</label>
+      <input id="participantId" type="text" placeholder="Enter an ID if needed" />
+
+      <div class="checkbox-row">
+        <input id="consentCheck" type="checkbox" />
+        <label for="consentCheck">
+          I am at least 18 years old, I understand that participation is voluntary, and I consent to take part in this study.
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" onclick="startStudy()">Begin Study</button>
+      </div>
+
+      <p class="footer-note">
+        Researcher note: this page can be shared as a study link in recruitment emails.
+      </p>
+    </div>
+
+    <div id="task" class="card hidden">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:999px; background:linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10)); border:1px solid rgba(99,102,241,0.14); font-weight:800; color:#334155;">
+            <span style="width:9px; height:9px; border-radius:50%; background:#22c55e; box-shadow:0 0 10px rgba(34,197,94,0.5);"></span>
+            Live Session
+          </div>
+          <div id="streakBadge" style="display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.88); border:1px solid rgba(148,163,184,0.16); font-weight:800; color:#475569;">Momentum 0</div>
+        </div>
+        <div id="sessionPoints" style="padding:12px 16px; border-radius:18px; background:linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239,246,255,0.92)); border:1px solid rgba(148,163,184,0.16); box-shadow:0 10px 22px rgba(37,99,235,0.08); min-width:150px; text-align:right;">
+          <div style="font-size:0.76rem; text-transform:uppercase; letter-spacing:0.08em; color:#64748b; font-weight:800;">Session Score</div>
+          <div id="sessionPointsValue" style="font-size:1.45rem; font-weight:900; color:#0f172a; letter-spacing:-0.03em; margin-top:4px;">0</div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px;">
+        <div style="font-size:0.86rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.05em;">Live Decision Trial</div>
+      </div>
+      <div class="trial-badge" id="trialBadge">Trial 1 of 10</div>
+      <h2>Decision Task</h2>
+      <div class="micro-panel">
+        <div class="micro-card">
+          <div class="micro-label">Trials Remaining</div>
+          <div class="micro-value" id="trialsRemaining">10</div>
+        </div>
+        <div class="micro-card">
+          <div class="micro-label">Known Choices</div>
+          <div class="micro-value" id="knownRunningCount">0</div>
+        </div>
+        <div class="micro-card">
+          <div class="micro-label">Ambiguous Choices</div>
+          <div class="micro-value" id="ambiguousRunningCount">0</div>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progressText">Progress: 1 / 10</span>
+          <span id="conditionText">Condition: --</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <p>
+        Please read the scenario below carefully and select the option you would choose.
+      </p>
+
+      <div class="jar-visual">
+        <p><strong>Scenario:</strong> Imagine a container with <strong>90 balls</strong>.</p>
+        <ul>
+          <li><strong>30 balls are red</strong>.</li>
+          <li><strong>60 balls are black or yellow</strong>, but the exact number of black balls is unknown.</li>
+        </ul>
+        <p>A single ball will be drawn at random from the container.</p>
+        <div class="jar-shell">
+          <div class="balls" id="ballsContainer"></div>
+        </div>
+        <p class="mini muted">
+          Red balls are known. The remaining 60 balls are shown as mixed because the exact number of black vs. yellow balls is unknown.
+        </p>
+      </div>
+
+      <div id="frameText"></div>
+
+      <div class="option-grid">
+        <div class="option-card" id="knownCard" onclick="chooseOption('known')">
+          <div>
+            <div class="option-subtitle">Option A</div>
+            <div class="option-title">Known Gamble</div>
+            <div class="decision-amount" id="knownAmount">$100</div>
+            <p id="knownText"></p>
+          </div>
+          <div class="option-footer">
+            <div>
+              <div class="label">Known probability: 1 in 3</div>
+              <div class="option-hint">Clear odds, lower uncertainty</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="option-card" id="ambiguousCard" onclick="chooseOption('ambiguous')">
+          <div>
+            <div class="option-subtitle">Option B</div>
+            <div class="option-title">Ambiguous Gamble</div>
+            <div class="decision-amount" id="ambiguousAmount">$100</div>
+            <p id="ambiguousText"></p>
+          </div>
+          <div class="option-footer">
+            <div>
+              <div class="label ambiguous">Unknown probability</div>
+              <div class="option-hint">Unclear odds, higher uncertainty</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback" id="feedbackText"></div>
+
+      <div class="choice-meter">
+        <div style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
+          <div style="font-weight:800; color:#334155;">Your decision pattern so far</div>
+          <div id="choiceMeterStatus" style="font-size:0.9rem; color:#64748b; font-weight:700;">Balanced</div>
+        </div>
+        <div class="choice-meter-track">
+          <div class="choice-meter-fill" id="choiceMeterFill"></div>
+        </div>
+        <div class="choice-meter-scale">
+          <span>More known</span>
+          <span>Balanced</span>
+          <span>More ambiguous</span>
+        </div>
+      </div>
+
+      <div class="draw-stage" id="drawStage">
+        <div class="draw-title">Ball Draw Preview</div>
+        <div class="draw-lane">
+          <div class="draw-ball" id="drawBall"></div>
+        </div>
+        <div class="draw-caption" id="drawCaption">Make a choice to see a quick draw animation before the next trial.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="secondary" onclick="returnToStart()">Back</button>
+      </div>
+    </div>
+
+    <div id="results" class="card hidden">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:6px;">
+        <div>
+          <div style="display:inline-block; padding:7px 12px; border-radius:999px; background:rgba(5,150,105,0.10); color:#047857; font-weight:800; font-size:0.85rem; border:1px solid rgba(5,150,105,0.12); margin-bottom:12px;">Study Complete</div>
+        </div>
+      </div>
+      <h2>Thank You</h2>
+      <p>Your responses have been recorded.</p>
+
+      <div class="result-box">
+        <p><strong>Total trials completed:</strong> <span id="resultTrials"></span></p>
+        <p><strong>Gain trials:</strong> <span id="gainCount"></span></p>
+        <p><strong>Loss trials:</strong> <span id="lossCount"></span></p>
+        <p><strong>Known choices:</strong> <span id="knownCount"></span></p>
+        <p><strong>Ambiguous choices:</strong> <span id="ambiguousCount"></span></p>
+      </div>
+
+      <h3>Comparison With Stored Average Data</h3>
+      <p class="muted">After your submission, the page will load summary data from Google Sheets and compare your responses with the average of all recorded participants.</p>
+
+      <div class="jar-visual">
+        <canvas id="resultsChart" height="180"></canvas>
+        <p class="mini muted" id="chartStatus">Comparison chart</p>
+      </div>
+
+      <h3>Debrief</h3>
+      <p>
+        This study examines whether people are more likely to avoid ambiguity when a gamble is framed as a <strong>gain</strong>
+        versus a <strong>loss</strong>. Specifically, it compares choices between a known gamble and an ambiguous gamble
+        in an Ellsberg paradox scenario across multiple trials.
+      </p>
+
+      <div class="btn-row">
+        <button class="primary" onclick="downloadData()">Download Response Data</button>
+        <button class="secondary" onclick="restartStudy()">Run Again</button>
+      </div>
+
+      <p class="footer-note">
+        Researcher note: for real data collection, connect the saved response object to Google Forms, Qualtrics, Firebase, or another approved storage system.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL_TRIALS = 10;
+    let audioContext = null;
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVHgUGvaiC-WbD6mmcIDEglHSG6C0EZ8L6OzSpCH4kuckSxYdyLnnvlvEIXFMGFBBYwg/exec";
+
+    const state = {
+      participantId: '',
+      currentTrial: 0,
+      trials: [],
+      sessionScore: 0,
+      momentum: 0
+    };
+
+    function buildBalls() {
+      const container = document.getElementById('ballsContainer');
+      container.innerHTML = '';
+
+      for (let i = 0; i < 30; i++) {
+        const ball = document.createElement('div');
+        ball.className = 'ball red';
+        ball.style.animationDelay = `${(i % 10) * 0.05}s, ${(i % 7) * 0.18}s`;
+        ball.style.animationDuration = `0.35s, ${2.4 + (i % 5) * 0.22}s`;
+        container.appendChild(ball);
+      }
+
+      for (let i = 0; i < 60; i++) {
+        const ball = document.createElement('div');
+        ball.className = 'ball mixed';
+        ball.style.animationDelay = `${(i % 10) * 0.05}s, ${(i % 9) * 0.14}s`;
+        ball.style.animationDuration = `0.35s, ${2.6 + (i % 6) * 0.2}s`;
+        container.appendChild(ball);
+      }
+    }
+
+    function randomCondition() {
+      return Math.random() < 0.5 ? 'gain' : 'loss';
+    }
+
+    function showScreen(screenId) {
+      document.getElementById('welcome').classList.add('hidden');
+      document.getElementById('task').classList.add('hidden');
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById(screenId).classList.remove('hidden');
+    }
+
+    function startStudy() {
+      const consent = document.getElementById('consentCheck').checked;
+      if (!consent) {
+        alert('Please confirm your consent before beginning the study.');
+        return;
+      }
+
+      state.participantId = document.getElementById('participantId').value.trim() || `p_${Date.now()}`;
+      state.currentTrial = 0;
+      state.trials = [];
+      state.sessionScore = 0;
+      state.momentum = 0;
+
+      for (let i = 0; i < TOTAL_TRIALS; i++) {
+        state.trials.push({
+          trial_number: i + 1,
+          condition: randomCondition(),
+          choice: null,
+          timestamp: null,
+          reaction_time_ms: null
+        });
+      }
+
+      showScreen('task');
+      renderTrial();
+    }
+
+    let trialStartTime = null;
+
+    function renderTrial() {
+      const trial = state.trials[state.currentTrial];
+      const frameText = document.getElementById('frameText');
+      const knownText = document.getElementById('knownText');
+      const ambiguousText = document.getElementById('ambiguousText');
+      const knownAmount = document.getElementById('knownAmount');
+      const ambiguousAmount = document.getElementById('ambiguousAmount');
+      const drawBall = document.getElementById('drawBall');
+      const drawCaption = document.getElementById('drawCaption');
+      const progressFill = document.getElementById('progressFill');
+      const trialsRemaining = document.getElementById('trialsRemaining');
+      const knownRunningCount = document.getElementById('knownRunningCount');
+      const ambiguousRunningCount = document.getElementById('ambiguousRunningCount');
+      const sessionPointsValue = document.getElementById('sessionPointsValue');
+      const streakBadge = document.getElementById('streakBadge');
+      const choiceMeterFill = document.getElementById('choiceMeterFill');
+      const choiceMeterStatus = document.getElementById('choiceMeterStatus');
+      const progressText = document.getElementById('progressText');
+      const conditionText = document.getElementById('conditionText');
+      const trialBadge = document.getElementById('trialBadge');
+      const feedbackText = document.getElementById('feedbackText');
+
+      document.getElementById('knownCard').classList.remove('selected');
+      document.getElementById('ambiguousCard').classList.remove('selected');
+      feedbackText.textContent = '';
+      drawBall.className = 'draw-ball';
+      drawCaption.textContent = 'Make a choice to see a quick draw animation before the next trial.';
+
+      trialBadge.textContent = `Trial ${trial.trial_number} of ${TOTAL_TRIALS}`;
+      progressText.textContent = `Progress: ${trial.trial_number} / ${TOTAL_TRIALS}`;
+      conditionText.textContent = `Condition: ${trial.condition}`;
+      progressFill.style.width = `${(trial.trial_number / TOTAL_TRIALS) * 100}%`;
+      const completedTrials = state.trials.filter(t => t.choice !== null);
+      const knownCount = completedTrials.filter(t => t.choice === 'known').length;
+      const ambiguousCount = completedTrials.filter(t => t.choice === 'ambiguous').length;
+      trialsRemaining.textContent = String(TOTAL_TRIALS - completedTrials.length);
+      knownRunningCount.textContent = String(knownCount);
+      ambiguousRunningCount.textContent = String(ambiguousCount);
+      sessionPointsValue.textContent = String(state.sessionScore);
+      streakBadge.textContent = `Momentum ${state.momentum}`;
+      const bias = completedTrials.length === 0 ? 0.5 : (ambiguousCount / completedTrials.length);
+      choiceMeterFill.style.width = `${Math.max(8, Math.min(92, bias * 100))}%`;
+      choiceMeterStatus.textContent = bias < 0.4 ? 'Leaning known' : bias > 0.6 ? 'Leaning ambiguous' : 'Balanced';
+
+      if (trial.condition === 'gain') {
+        frameText.innerHTML = `<p><strong>Gain frame:</strong> You will <strong>win $100</strong> if the selected ball color is drawn.</p>`;
+        knownText.textContent = 'Win $100 if a red ball is drawn.';
+        ambiguousText.textContent = 'Win $100 if a black ball is drawn.';
+        knownAmount.textContent = '+$100';
+        ambiguousAmount.textContent = '+$100';
+      } else {
+        frameText.innerHTML = `<p><strong>Loss frame:</strong> You will <strong>lose $100</strong> if the selected ball color is drawn.</p>`;
+        knownText.textContent = 'Lose $100 if a red ball is drawn.';
+        ambiguousText.textContent = 'Lose $100 if a black ball is drawn.';
+        knownAmount.textContent = '-$100';
+        ambiguousAmount.textContent = '-$100';
+      }
+
+      trialStartTime = performance.now();
+    }
+
+    function playChoiceSound(type = 'known') {
+      try {
+        if (!audioContext) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          audioContext = new AudioCtx();
+        }
+
+        const now = audioContext.currentTime;
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        const filter = audioContext.createBiquadFilter();
+
+        oscillator.type = type === 'known' ? 'sine' : 'triangle';
+        oscillator.frequency.setValueAtTime(type === 'known' ? 620 : 520, now);
+        oscillator.frequency.exponentialRampToValueAtTime(type === 'known' ? 760 : 640, now + 0.08);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1800, now);
+
+        gainNode.gain.setValueAtTime(0.0001, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.05, now + 0.015);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+
+        oscillator.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.2);
+      } catch (e) {
+        console.error('Audio playback failed:', e);
+      }
+    }
+
+    function playDrawSound(colorType = 'red') {
+      try {
+        if (!audioContext) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          audioContext = new AudioCtx();
+        }
+
+        const now = audioContext.currentTime;
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(colorType === 'red' ? 420 : 340, now);
+        oscillator.frequency.exponentialRampToValueAtTime(colorType === 'red' ? 520 : 430, now + 0.1);
+        gainNode.gain.setValueAtTime(0.0001, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.035, now + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.18);
+      } catch (e) {
+        console.error('Draw sound failed:', e);
+      }
+    }
+
+    function showDrawAnimation(choiceType) {
+      const drawBall = document.getElementById('drawBall');
+      const drawCaption = document.getElementById('drawCaption');
+      const ballType = choiceType === 'known' ? 'red' : 'dark';
+      drawBall.className = `draw-ball ${ballType}`;
+      drawCaption.textContent = choiceType === 'known'
+        ? 'Preview: your selected gamble is tied to a red ball.'
+        : 'Preview: your selected gamble is tied to a black ball.';
+
+      requestAnimationFrame(() => {
+        drawBall.classList.add('show');
+      });
+      playDrawSound(ballType);
+    }
+
+    function chooseOption(choiceType) {
+      const trial = state.trials[state.currentTrial];
+      if (trial.choice !== null) return;
+
+      trial.choice = choiceType;
+      trial.timestamp = getChicagoTimestamp();
+      trial.reaction_time_ms = Math.round(performance.now() - trialStartTime);
+
+      const selectedCard = choiceType === 'known'
+        ? document.getElementById('knownCard')
+        : document.getElementById('ambiguousCard');
+      selectedCard.classList.add('selected');
+      playChoiceSound(choiceType);
+      showDrawAnimation(choiceType);
+
+      state.sessionScore += 10;
+      state.momentum += 1;
+
+      document.getElementById('sessionPointsValue').textContent = String(state.sessionScore);
+      document.getElementById('streakBadge').textContent = `Momentum ${state.momentum}`;
+      document.getElementById('feedbackText').textContent =
+        choiceType === 'known' ? 'Choice recorded: known option selected.' : 'Choice recorded: ambiguous option selected.';
+
+      setTimeout(() => {
+        state.currentTrial++;
+        if (state.currentTrial < TOTAL_TRIALS) {
+          renderTrial();
+        } else {
+          showResults();
+        }
+      }, 950);
+    }
+
+    function showResults() {
+      state.momentum = 0;
+      const gainTrials = state.trials.filter(t => t.condition === 'gain').length;
+      const lossTrials = state.trials.filter(t => t.condition === 'loss').length;
+      const knownChoices = state.trials.filter(t => t.choice === 'known').length;
+      const ambiguousChoices = state.trials.filter(t => t.choice === 'ambiguous').length;
+
+      document.getElementById('resultTrials').textContent = TOTAL_TRIALS;
+      document.getElementById('gainCount').textContent = gainTrials;
+      document.getElementById('lossCount').textContent = lossTrials;
+      document.getElementById('knownCount').textContent = knownChoices;
+      document.getElementById('ambiguousCount').textContent = ambiguousChoices;
+
+      console.log('Recorded responses:', getResponseData());
+      showScreen('results');
+      uploadDataToGoogleSheet().then(() => {
+        setTimeout(() => {
+          loadAverageDataAndDrawChart();
+        }, 1200);
+      });
+    }
+
+    function getResponseData() {
+      return {
+        participant_id: state.participantId,
+        trials: state.trials.map(trial => ({
+          trial_number: trial.trial_number,
+          condition: trial.condition,
+          choice: trial.choice,
+          timestamp: trial.timestamp,
+          reaction_time_ms: trial.reaction_time_ms
+        }))
+      };
+    }
+
+    async function uploadDataToGoogleSheet() {
+      const data = getResponseData();
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(data)
+        });
+
+        console.log('Upload sent to Google Sheets.');
+        return true;
+      } catch (error) {
+        console.error('Upload failed:', error);
+        return false;
+      }
+    }
+
+    function getChicagoTimestamp() {
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Chicago',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).formatToParts(now);
+
+      const map = {};
+      parts.forEach(part => {
+        map[part.type] = part.value;
+      });
+
+      return `${map.year}-${map.month}-${map.day} ${map.hour}:${map.minute}:${map.second}`;
+    }
+
+    async function loadAverageDataAndDrawChart() {
+      const statusEl = document.getElementById('chartStatus');
+      const myKnownRate = state.trials.filter(t => t.choice === 'known').length / TOTAL_TRIALS;
+      const myAmbiguousRate = state.trials.filter(t => t.choice === 'ambiguous').length / TOTAL_TRIALS;
+
+      try {
+        statusEl.textContent = 'Loading group averages...';
+
+        const response = await fetch(SCRIPT_URL, {
+          method: 'GET',
+          cache: 'no-store'
+        });
+
+        const summary = await response.json();
+
+        if (!summary || summary.status !== 'success') {
+          throw new Error('Invalid average data response');
+        }
+
+        drawComparisonChart({
+          myKnownRate,
+          myAmbiguousRate,
+          avgKnownRate: Number(summary.avg_known_rate || 0),
+          avgAmbiguousRate: Number(summary.avg_ambiguous_rate || 0),
+          participantCount: Number(summary.participant_count || 0)
+        });
+
+        statusEl.textContent = `Based on ${summary.participant_count} participant(s)`;
+      } catch (error) {
+        console.error('Failed to load average data:', error);
+        drawComparisonChart({
+          myKnownRate,
+          myAmbiguousRate,
+          avgKnownRate: 0,
+          avgAmbiguousRate: 0,
+          participantCount: 0
+        });
+        statusEl.textContent = 'Failed to load group averages.';
+      }
+    }
+
+    async function loadAverageDataAndDrawChart() {
+      const statusEl = document.getElementById('chartStatus');
+      const myKnownRate = state.trials.filter(t => t.choice === 'known').length / TOTAL_TRIALS;
+      const myAmbiguousRate = state.trials.filter(t => t.choice === 'ambiguous').length / TOTAL_TRIALS;
+
+      try {
+        statusEl.textContent = 'Loading group average data...';
+        const response = await fetch(SCRIPT_URL, { method: 'GET', mode: 'cors' });
+        const summary = await response.json();
+
+        if (!summary || summary.status !== 'success') {
+          throw new Error('Invalid summary response');
+        }
+
+        drawComparisonChart({
+          myKnownRate,
+          myAmbiguousRate,
+          avgKnownRate: Number(summary.avg_known_rate || 0),
+          avgAmbiguousRate: Number(summary.avg_ambiguous_rate || 0),
+          participantCount: Number(summary.participant_count || 0)
+        });
+
+        statusEl.textContent = `Compared with ${summary.participant_count} stored participant(s).`;
+      } catch (error) {
+        console.error('Failed to load average data:', error);
+        drawComparisonChart({
+          myKnownRate,
+          myAmbiguousRate,
+          avgKnownRate: 0,
+          avgAmbiguousRate: 0,
+          participantCount: 0
+        });
+        statusEl.textContent = 'Could not load Google Sheet averages yet. Check Apps Script GET deployment.';
+      }
+    }
+
+    function drawComparisonChart({ myKnownRate, myAmbiguousRate, avgKnownRate, avgAmbiguousRate, participantCount }) {
+      const canvas = document.getElementById('resultsChart');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const cssWidth = canvas.parentElement.clientWidth - 8;
+      const cssHeight = 220;
+      canvas.width = cssWidth * dpr;
+      canvas.height = cssHeight * dpr;
+      canvas.style.width = `${cssWidth}px`;
+      canvas.style.height = `${cssHeight}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const width = cssWidth;
+      const height = cssHeight;
+      ctx.clearRect(0, 0, width, height);
+
+      const margin = { top: 28, right: 20, bottom: 46, left: 54 };
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+
+      const bars = [
+        { label: 'Your Known', value: myKnownRate },
+        { label: 'Average Known', value: avgKnownRate },
+        { label: 'Your Ambiguous', value: myAmbiguousRate },
+        { label: 'Average Ambiguous', value: avgAmbiguousRate }
+      ];
+
+      ctx.strokeStyle = '#d1d5db';
+      ctx.lineWidth = 1;
+      ctx.font = '12px Arial';
+      ctx.fillStyle = '#6b7280';
+
+      for (let i = 0; i <= 5; i++) {
+        const y = margin.top + chartHeight - (chartHeight * i / 5);
+        ctx.beginPath();
+        ctx.moveTo(margin.left, y);
+        ctx.lineTo(margin.left + chartWidth, y);
+        ctx.stroke();
+        ctx.fillText(`${i * 20}%`, 12, y + 4);
+      }
+
+      ctx.strokeStyle = '#111827';
+      ctx.beginPath();
+      ctx.moveTo(margin.left, margin.top);
+      ctx.lineTo(margin.left, margin.top + chartHeight);
+      ctx.lineTo(margin.left + chartWidth, margin.top + chartHeight);
+      ctx.stroke();
+
+      const gap = 18;
+      const barWidth = (chartWidth - gap * (bars.length + 1)) / bars.length;
+
+      bars.forEach((bar, index) => {
+        const x = margin.left + gap + index * (barWidth + gap);
+        const barHeight = Math.max(0, Math.min(1, bar.value)) * chartHeight;
+        const y = margin.top + chartHeight - barHeight;
+
+        ctx.fillStyle = index % 2 === 0 ? '#2563eb' : '#93c5fd';
+        ctx.fillRect(x, y, barWidth, barHeight);
+
+        ctx.fillStyle = '#111827';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${Math.round(bar.value * 100)}%`, x + barWidth / 2, y - 8);
+
+        const words = bar.label.split(' ');
+        ctx.fillStyle = '#374151';
+        words.forEach((word, lineIndex) => {
+          ctx.fillText(word, x + barWidth / 2, margin.top + chartHeight + 18 + lineIndex * 14);
+        });
+      });
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#374151';
+      ctx.fillText(`Stored participants: ${participantCount}`, margin.left, 16);
+    }
+
+    function downloadData() {
+      const data = getResponseData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ellsberg_responses_${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function restartStudy() {
+      state.sessionScore = 0;
+      state.momentum = 0;
+      document.getElementById('participantId').value = '';
+      document.getElementById('consentCheck').checked = false;
+      state.participantId = '';
+      state.currentTrial = 0;
+      state.trials = [];
+      showScreen('welcome');
+    }
+
+    function returnToStart() {
+      showScreen('welcome');
+    }
+
+    buildBalls();
+  </script>
+</body>
+</html>
