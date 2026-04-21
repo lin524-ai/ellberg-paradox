@@ -693,13 +693,13 @@
         </div>
         <div style="min-width:180px; flex:0 0 auto; padding:14px 16px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,0.88), rgba(239,246,255,0.88)); border:1px solid rgba(148,163,184,0.16); box-shadow:0 8px 20px rgba(37,99,235,0.06);">
           <div style="font-size:0.82rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Session Info</div>
-          <div style="margin-top:8px; font-weight:800; color:#172033;">10 decision trials</div>
-          <div style="margin-top:4px; color:#667085; font-size:0.95rem;">Approx. 3–5 minutes</div>
+          <div style="margin-top:8px; font-weight:800; color:#172033;">1 decision trial</div>
+          <div style="margin-top:4px; color:#667085; font-size:0.95rem;">Approx. 1 minute</div>
         </div>
       </div>
       <p>
         You are invited to participate in a short research study about decision-making under uncertainty.
-        This study is designed for undergraduate students and takes about 3–5 minutes to complete.
+        This study is designed for undergraduate students and takes about 1 minute to complete.
       </p>
 
       <div style="margin:18px 0 22px; padding:20px; border-radius:20px; background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239,246,255,0.88)); border:1px solid rgba(148,163,184,0.18); box-shadow:0 10px 24px rgba(37,99,235,0.07);">
@@ -723,7 +723,7 @@
 
       <h3>What this study is about</h3>
       <p>
-        In this study, you will complete <strong>10 decision trials</strong>. On each trial, you will read a brief gambling scenario and choose between two options.
+        In this study, you will complete <strong>1 decision trial</strong>. On each trial, you will read a brief gambling scenario and choose between two options.
         One option involves a <strong>known probability</strong>, and the other involves an <strong>ambiguous probability</strong>.
       </p>
 
@@ -761,10 +761,10 @@
             <span style="width:9px; height:9px; border-radius:50%; background:#22c55e; box-shadow:0 0 10px rgba(34,197,94,0.5);"></span>
             Live Session
           </div>
-          <div id="streakBadge" style="display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.88); border:1px solid rgba(148,163,184,0.16); font-weight:800; color:#475569;">Momentum 0</div>
+          <div id="streakBadge" style="display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.88); border:1px solid rgba(148,163,184,0.16); font-weight:800; color:#475569;">Ready</div>
         </div>
         <div id="sessionPoints" style="padding:12px 16px; border-radius:18px; background:linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239,246,255,0.92)); border:1px solid rgba(148,163,184,0.16); box-shadow:0 10px 22px rgba(37,99,235,0.08); min-width:150px; text-align:right;">
-          <div style="font-size:0.76rem; text-transform:uppercase; letter-spacing:0.08em; color:#64748b; font-weight:800;">Session Score</div>
+          <div style="font-size:0.76rem; text-transform:uppercase; letter-spacing:0.08em; color:#64748b; font-weight:800;">Decision Score</div>
           <div id="sessionPointsValue" style="font-size:1.45rem; font-weight:900; color:#0f172a; letter-spacing:-0.03em; margin-top:4px;">0</div>
         </div>
       </div>
@@ -775,8 +775,8 @@
       <h2>Decision Task</h2>
       <div class="micro-panel">
         <div class="micro-card">
-          <div class="micro-label">Trials Remaining</div>
-          <div class="micro-value" id="trialsRemaining">10</div>
+          <div class="micro-label">Trial Remaining</div>
+          <div class="micro-value" id="trialsRemaining">1</div>
         </div>
         <div class="micro-card">
           <div class="micro-label">Known Choices</div>
@@ -873,7 +873,7 @@
         <div class="draw-lane">
           <div class="draw-ball" id="drawBall"></div>
         </div>
-        <div class="draw-caption" id="drawCaption">Make a choice to see a quick draw animation before the next trial.</div>
+        <div class="draw-caption" id="drawCaption">Make a choice to see a quick draw animation before the result screen.</div>
       </div>
 
       <div class="btn-row">
@@ -888,10 +888,11 @@
         </div>
       </div>
       <h2>Thank You</h2>
-      <p>Your responses have been recorded.</p>
+      <p>Your response has been recorded.</p>
 
       <div class="result-box">
         <p><strong>Total trials completed:</strong> <span id="resultTrials"></span></p>
+        <p><strong>Your assigned condition:</strong> <span id="resultAssignedCondition"></span></p>
         <p><strong>Gain trials:</strong> <span id="gainCount"></span></p>
         <p><strong>Loss trials:</strong> <span id="lossCount"></span></p>
         <p><strong>Known choices:</strong> <span id="knownCount"></span></p>
@@ -910,7 +911,7 @@
       <p>
         This study examines whether people are more likely to avoid ambiguity when a gamble is framed as a <strong>gain</strong>
         versus a <strong>loss</strong>. Specifically, it compares choices between a known gamble and an ambiguous gamble
-        in an Ellsberg paradox scenario across multiple trials.
+        in an Ellsberg paradox scenario in a single decision.
       </p>
 
       <div class="btn-row">
@@ -925,9 +926,9 @@
   </div>
 
   <script>
-    const TOTAL_TRIALS = 10;
+    const TOTAL_TRIALS = 1;
     let audioContext = null;
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVHgUGvaiC-WbD6mmcIDEglHSG6C0EZ8L6OzSpCH4kuckSxYdyLnnvlvEIXFMGFBBYwg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg1s_f0KJbw0c9HXlUhzkvC68fVVK9d50Xv4EltvfucA7ZydVsxrWXI7Qj4NjCxYMtGw/exec";
 
     const state = {
       participantId: '',
@@ -982,15 +983,13 @@
       state.sessionScore = 0;
       state.momentum = 0;
 
-      for (let i = 0; i < TOTAL_TRIALS; i++) {
-        state.trials.push({
-          trial_number: i + 1,
-          condition: randomCondition(),
-          choice: null,
-          timestamp: null,
-          reaction_time_ms: null
-        });
-      }
+      state.trials.push({
+        trial_number: 1,
+        condition: randomCondition(),
+        choice: null,
+        timestamp: null,
+        reaction_time_ms: null
+      });
 
       showScreen('task');
       renderTrial();
@@ -1024,7 +1023,7 @@
       document.getElementById('ambiguousCard').classList.remove('selected');
       feedbackText.textContent = '';
       drawBall.className = 'draw-ball';
-      drawCaption.textContent = 'Make a choice to see a quick draw animation before the next trial.';
+      drawCaption.textContent = 'Make a choice to see a quick draw animation before the result screen.';
 
       trialBadge.textContent = `Trial ${trial.trial_number} of ${TOTAL_TRIALS}`;
       progressText.textContent = `Progress: ${trial.trial_number} / ${TOTAL_TRIALS}`;
@@ -1037,7 +1036,7 @@
       knownRunningCount.textContent = String(knownCount);
       ambiguousRunningCount.textContent = String(ambiguousCount);
       sessionPointsValue.textContent = String(state.sessionScore);
-      streakBadge.textContent = `Momentum ${state.momentum}`;
+      streakBadge.textContent = 'Completed';
       const bias = completedTrials.length === 0 ? 0.5 : (ambiguousCount / completedTrials.length);
       choiceMeterFill.style.width = `${Math.max(8, Math.min(92, bias * 100))}%`;
       choiceMeterStatus.textContent = bias < 0.4 ? 'Leaning known' : bias > 0.6 ? 'Leaning ambiguous' : 'Balanced';
@@ -1150,11 +1149,11 @@
       playChoiceSound(choiceType);
       showDrawAnimation(choiceType);
 
-      state.sessionScore += 10;
+      state.sessionScore += 100;
       state.momentum += 1;
 
       document.getElementById('sessionPointsValue').textContent = String(state.sessionScore);
-      document.getElementById('streakBadge').textContent = `Momentum ${state.momentum}`;
+      document.getElementById('streakBadge').textContent = 'Completed';
       document.getElementById('feedbackText').textContent =
         choiceType === 'known' ? 'Choice recorded: known option selected.' : 'Choice recorded: ambiguous option selected.';
 
@@ -1176,6 +1175,7 @@
       const ambiguousChoices = state.trials.filter(t => t.choice === 'ambiguous').length;
 
       document.getElementById('resultTrials').textContent = TOTAL_TRIALS;
+      document.getElementById('resultAssignedCondition').textContent = state.trials[0]?.condition || '-';
       document.getElementById('gainCount').textContent = gainTrials;
       document.getElementById('lossCount').textContent = lossTrials;
       document.getElementById('knownCount').textContent = knownChoices;
@@ -1186,7 +1186,7 @@
       uploadDataToGoogleSheet().then(() => {
         setTimeout(() => {
           loadAverageDataAndDrawChart();
-        }, 1200);
+        }, 800);
       });
     }
 
