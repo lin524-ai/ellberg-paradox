@@ -9,13 +9,10 @@
       --bg: #f4f7fb;
       --bg-2: #eef4ff;
       --card: rgba(255,255,255,0.82);
-      --card-strong: rgba(255,255,255,0.94);
       --text: #172033;
       --muted: #667085;
       --border: rgba(148, 163, 184, 0.22);
       --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --primary-soft: rgba(37,99,235,0.10);
       --accent: #7c3aed;
       --success: #059669;
       --shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
@@ -122,11 +119,6 @@
       50% { box-shadow: 0 0 26px rgba(37,99,235,0.20); }
       100% { box-shadow: 0 0 0 rgba(37,99,235,0); }
     }
-      40% { transform: scale(1.025); }
-      100% { transform: scale(1); }
-    }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
     h1, h2, h3 {
       margin-top: 0;
@@ -157,21 +149,16 @@
       font-size: 1rem;
     }
 
-    strong {
-      color: #12213f;
-    }
-
+    strong { color: #12213f; }
     .muted { color: var(--muted); }
+    .hidden { display: none; }
 
-    ul {
-      padding-left: 1.2rem;
-    }
+    ul { padding-left: 1.2rem; }
 
     label {
       font-weight: 600;
       color: #21304b;
     }
-    .hidden { display: none; }
 
     .btn-row {
       display: flex;
@@ -188,7 +175,7 @@
       font-weight: 800;
       letter-spacing: 0.01em;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
     }
 
@@ -208,11 +195,6 @@
       background: rgba(255,255,255,0.9);
       color: #1f2937;
       border: 1px solid rgba(148,163,184,0.22);
-    }
-
-    .danger {
-      background: var(--danger);
-      color: white;
     }
 
     .option-grid {
@@ -661,12 +643,6 @@
       min-height: 24px;
     }
 
-    code {
-      background: #f3f4f6;
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
-
     @media (max-width: 640px) {
       .container { padding: 16px 12px 28px; }
       .card { padding: 22px 18px; border-radius: 20px; }
@@ -677,9 +653,6 @@
       .btn-row { flex-direction: column; }
       button { width: 100%; }
     }
-      .card { padding: 18px; }
-      .balls { gap: 5px; }
-    }
   </style>
 </head>
 <body>
@@ -688,8 +661,8 @@
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:6px;">
         <div>
           <div style="display:inline-block; padding:7px 12px; border-radius:999px; background:rgba(37,99,235,0.08); color:#1d4ed8; font-weight:800; font-size:0.85rem; border:1px solid rgba(37,99,235,0.12); margin-bottom:12px;">Behavioral Economics Study</div>
-      <h1>Decision-Making Study</h1>
-      <p class="muted" style="margin-top:0; font-size:1rem;">University of Wisconsin–Madison</p>
+          <h1>Decision-Making Study</h1>
+          <p class="muted" style="margin-top:0; font-size:1rem;">University of Wisconsin–Madison</p>
         </div>
         <div style="min-width:180px; flex:0 0 auto; padding:14px 16px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,0.88), rgba(239,246,255,0.88)); border:1px solid rgba(148,163,184,0.16); box-shadow:0 8px 20px rgba(37,99,235,0.06);">
           <div style="font-size:0.82rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Session Info</div>
@@ -697,6 +670,7 @@
           <div style="margin-top:4px; color:#667085; font-size:0.95rem;">Approx. 1 minute</div>
         </div>
       </div>
+
       <p>
         You are invited to participate in a short research study about decision-making under uncertainty.
         This study is designed for undergraduate students and takes about 1 minute to complete.
@@ -723,7 +697,7 @@
 
       <h3>What this study is about</h3>
       <p>
-        In this study, you will complete <strong>1 decision trial</strong>. On each trial, you will read a brief gambling scenario and choose between two options.
+        In this study, you will complete <strong>1 decision trial</strong>. You will read a brief gambling scenario and choose between two options.
         One option involves a <strong>known probability</strong>, and the other involves an <strong>ambiguous probability</strong>.
       </p>
 
@@ -768,11 +742,14 @@
           <div id="sessionPointsValue" style="font-size:1.45rem; font-weight:900; color:#0f172a; letter-spacing:-0.03em; margin-top:4px;">0</div>
         </div>
       </div>
+
       <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px;">
         <div style="font-size:0.86rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.05em;">Live Decision Trial</div>
       </div>
-      <div class="trial-badge" id="trialBadge">Trial 1 of 10</div>
+
+      <div class="trial-badge" id="trialBadge">Trial 1 of 1</div>
       <h2>Decision Task</h2>
+
       <div class="micro-panel">
         <div class="micro-card">
           <div class="micro-label">Trial Remaining</div>
@@ -790,7 +767,7 @@
 
       <div class="progress-wrap">
         <div class="progress-meta">
-          <span id="progressText">Progress: 1 / 10</span>
+          <span id="progressText">Progress: 1 / 1</span>
           <span id="conditionText">Condition: --</span>
         </div>
         <div class="progress-bar">
@@ -900,18 +877,18 @@
       </div>
 
       <h3>Comparison With Stored Average Data</h3>
-      <p class="muted">After your submission, the page will load summary data from Google Sheets and compare your responses with the average of all recorded participants.</p>
+      <p class="muted">After your submission, the page will load summary data from Google Sheets and compare your response with the average of all recorded participants.</p>
 
       <div class="jar-visual">
         <canvas id="resultsChart" height="180"></canvas>
-        <p class="mini muted" id="chartStatus">Comparison chart</p>
+        <p class="mini muted" id="chartStatus">Waiting to load group averages...</p>
       </div>
 
       <h3>Debrief</h3>
       <p>
         This study examines whether people are more likely to avoid ambiguity when a gamble is framed as a <strong>gain</strong>
         versus a <strong>loss</strong>. Specifically, it compares choices between a known gamble and an ambiguous gamble
-        in an Ellsberg paradox scenario in a single decision.
+        in a single Ellsberg paradox decision.
       </p>
 
       <div class="btn-row">
@@ -927,8 +904,8 @@
 
   <script>
     const TOTAL_TRIALS = 1;
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxamun-AOA5eqRSoDows2I0Cjbbk2yuNhzWE6OH1jbHgFjaJZP7fSkI8ohovATVjXFjng/exec";
     let audioContext = null;
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg1s_f0KJbw0c9HXlUhzkvC68fVVK9d50Xv4EltvfucA7ZydVsxrWXI7Qj4NjCxYMtGw/exec";
 
     const state = {
       participantId: '',
@@ -979,17 +956,15 @@
 
       state.participantId = document.getElementById('participantId').value.trim() || `p_${Date.now()}`;
       state.currentTrial = 0;
-      state.trials = [];
-      state.sessionScore = 0;
-      state.momentum = 0;
-
-      state.trials.push({
+      state.trials = [{
         trial_number: 1,
         condition: randomCondition(),
         choice: null,
         timestamp: null,
         reaction_time_ms: null
-      });
+      }];
+      state.sessionScore = 0;
+      state.momentum = 0;
 
       showScreen('task');
       renderTrial();
@@ -1029,6 +1004,7 @@
       progressText.textContent = `Progress: ${trial.trial_number} / ${TOTAL_TRIALS}`;
       conditionText.textContent = `Condition: ${trial.condition}`;
       progressFill.style.width = `${(trial.trial_number / TOTAL_TRIALS) * 100}%`;
+
       const completedTrials = state.trials.filter(t => t.choice !== null);
       const knownCount = completedTrials.filter(t => t.choice === 'known').length;
       const ambiguousCount = completedTrials.filter(t => t.choice === 'ambiguous').length;
@@ -1036,7 +1012,7 @@
       knownRunningCount.textContent = String(knownCount);
       ambiguousRunningCount.textContent = String(ambiguousCount);
       sessionPointsValue.textContent = String(state.sessionScore);
-      streakBadge.textContent = 'Completed';
+      streakBadge.textContent = completedTrials.length === 0 ? 'Ready' : 'Completed';
       const bias = completedTrials.length === 0 ? 0.5 : (ambiguousCount / completedTrials.length);
       choiceMeterFill.style.width = `${Math.max(8, Math.min(92, bias * 100))}%`;
       choiceMeterStatus.textContent = bias < 0.4 ? 'Leaning known' : bias > 0.6 ? 'Leaning ambiguous' : 'Balanced';
@@ -1058,18 +1034,24 @@
       trialStartTime = performance.now();
     }
 
+    function ensureAudioContext() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return null;
+        audioContext = new AudioCtx();
+      }
+      return audioContext;
+    }
+
     function playChoiceSound(type = 'known') {
       try {
-        if (!audioContext) {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          if (!AudioCtx) return;
-          audioContext = new AudioCtx();
-        }
+        const ctx = ensureAudioContext();
+        if (!ctx) return;
 
-        const now = audioContext.currentTime;
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        const filter = audioContext.createBiquadFilter();
+        const now = ctx.currentTime;
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
 
         oscillator.type = type === 'known' ? 'sine' : 'triangle';
         oscillator.frequency.setValueAtTime(type === 'known' ? 620 : 520, now);
@@ -1084,7 +1066,7 @@
 
         oscillator.connect(filter);
         filter.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        gainNode.connect(ctx.destination);
 
         oscillator.start(now);
         oscillator.stop(now + 0.2);
@@ -1095,15 +1077,12 @@
 
     function playDrawSound(colorType = 'red') {
       try {
-        if (!audioContext) {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          if (!AudioCtx) return;
-          audioContext = new AudioCtx();
-        }
+        const ctx = ensureAudioContext();
+        if (!ctx) return;
 
-        const now = audioContext.currentTime;
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        const now = ctx.currentTime;
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
         oscillator.type = 'square';
         oscillator.frequency.setValueAtTime(colorType === 'red' ? 420 : 340, now);
         oscillator.frequency.exponentialRampToValueAtTime(colorType === 'red' ? 520 : 430, now + 0.1);
@@ -1111,7 +1090,7 @@
         gainNode.gain.exponentialRampToValueAtTime(0.035, now + 0.01);
         gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
         oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        gainNode.connect(ctx.destination);
         oscillator.start(now);
         oscillator.stop(now + 0.18);
       } catch (e) {
@@ -1132,6 +1111,27 @@
         drawBall.classList.add('show');
       });
       playDrawSound(ballType);
+    }
+
+    function getChicagoTimestamp() {
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Chicago',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).formatToParts(now);
+
+      const map = {};
+      parts.forEach(part => {
+        map[part.type] = part.value;
+      });
+
+      return `${map.year}-${map.month}-${map.day} ${map.hour}:${map.minute}:${map.second}`;
     }
 
     function chooseOption(choiceType) {
@@ -1165,29 +1165,6 @@
           showResults();
         }
       }, 950);
-    }
-
-    function showResults() {
-      state.momentum = 0;
-      const gainTrials = state.trials.filter(t => t.condition === 'gain').length;
-      const lossTrials = state.trials.filter(t => t.condition === 'loss').length;
-      const knownChoices = state.trials.filter(t => t.choice === 'known').length;
-      const ambiguousChoices = state.trials.filter(t => t.choice === 'ambiguous').length;
-
-      document.getElementById('resultTrials').textContent = TOTAL_TRIALS;
-      document.getElementById('resultAssignedCondition').textContent = state.trials[0]?.condition || '-';
-      document.getElementById('gainCount').textContent = gainTrials;
-      document.getElementById('lossCount').textContent = lossTrials;
-      document.getElementById('knownCount').textContent = knownChoices;
-      document.getElementById('ambiguousCount').textContent = ambiguousChoices;
-
-      console.log('Recorded responses:', getResponseData());
-      showScreen('results');
-      uploadDataToGoogleSheet().then(() => {
-        setTimeout(() => {
-          loadAverageDataAndDrawChart();
-        }, 800);
-      });
     }
 
     function getResponseData() {
@@ -1224,27 +1201,6 @@
       }
     }
 
-    function getChicagoTimestamp() {
-      const now = new Date();
-      const parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'America/Chicago',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      }).formatToParts(now);
-
-      const map = {};
-      parts.forEach(part => {
-        map[part.type] = part.value;
-      });
-
-      return `${map.year}-${map.month}-${map.day} ${map.hour}:${map.minute}:${map.second}`;
-    }
-
     async function loadAverageDataAndDrawChart() {
       const statusEl = document.getElementById('chartStatus');
       const myKnownRate = state.trials.filter(t => t.choice === 'known').length / TOTAL_TRIALS;
@@ -1253,14 +1209,28 @@
       try {
         statusEl.textContent = 'Loading group averages...';
 
-        const response = await fetch(SCRIPT_URL, {
+        const url = `${SCRIPT_URL}?t=${Date.now()}`;
+        const response = await fetch(url, {
           method: 'GET',
           cache: 'no-store'
         });
 
-        const summary = await response.json();
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const text = await response.text();
+        let summary;
+
+        try {
+          summary = JSON.parse(text);
+        } catch (parseError) {
+          console.error('Average JSON parse failed. Raw response:', text);
+          throw new Error('Invalid JSON from Apps Script');
+        }
 
         if (!summary || summary.status !== 'success') {
+          console.error('Average response payload:', summary);
           throw new Error('Invalid average data response');
         }
 
@@ -1272,7 +1242,9 @@
           participantCount: Number(summary.participant_count || 0)
         });
 
-        statusEl.textContent = `Based on ${summary.participant_count} participant(s)`;
+        statusEl.textContent = Number(summary.participant_count || 0) > 0
+          ? `Based on ${summary.participant_count} participant(s)`
+          : 'No stored average data yet.';
       } catch (error) {
         console.error('Failed to load average data:', error);
         drawComparisonChart({
@@ -1282,43 +1254,7 @@
           avgAmbiguousRate: 0,
           participantCount: 0
         });
-        statusEl.textContent = 'Failed to load group averages.';
-      }
-    }
-
-    async function loadAverageDataAndDrawChart() {
-      const statusEl = document.getElementById('chartStatus');
-      const myKnownRate = state.trials.filter(t => t.choice === 'known').length / TOTAL_TRIALS;
-      const myAmbiguousRate = state.trials.filter(t => t.choice === 'ambiguous').length / TOTAL_TRIALS;
-
-      try {
-        statusEl.textContent = 'Loading group average data...';
-        const response = await fetch(SCRIPT_URL, { method: 'GET', mode: 'cors' });
-        const summary = await response.json();
-
-        if (!summary || summary.status !== 'success') {
-          throw new Error('Invalid summary response');
-        }
-
-        drawComparisonChart({
-          myKnownRate,
-          myAmbiguousRate,
-          avgKnownRate: Number(summary.avg_known_rate || 0),
-          avgAmbiguousRate: Number(summary.avg_ambiguous_rate || 0),
-          participantCount: Number(summary.participant_count || 0)
-        });
-
-        statusEl.textContent = `Compared with ${summary.participant_count} stored participant(s).`;
-      } catch (error) {
-        console.error('Failed to load average data:', error);
-        drawComparisonChart({
-          myKnownRate,
-          myAmbiguousRate,
-          avgKnownRate: 0,
-          avgAmbiguousRate: 0,
-          participantCount: 0
-        });
-        statusEl.textContent = 'Could not load Google Sheet averages yet. Check Apps Script GET deployment.';
+        statusEl.textContent = 'Failed to load group averages. Check Apps Script doGet deployment.';
       }
     }
 
@@ -1328,7 +1264,7 @@
 
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
-      const cssWidth = canvas.parentElement.clientWidth - 8;
+      const cssWidth = Math.max(300, canvas.parentElement.clientWidth - 8);
       const cssHeight = 220;
       canvas.width = cssWidth * dpr;
       canvas.height = cssHeight * dpr;
@@ -1340,7 +1276,7 @@
       const height = cssHeight;
       ctx.clearRect(0, 0, width, height);
 
-      const margin = { top: 28, right: 20, bottom: 46, left: 54 };
+      const margin = { top: 28, right: 20, bottom: 54, left: 54 };
       const chartWidth = width - margin.left - margin.right;
       const chartHeight = height - margin.top - margin.bottom;
 
@@ -1397,6 +1333,28 @@
       ctx.textAlign = 'left';
       ctx.fillStyle = '#374151';
       ctx.fillText(`Stored participants: ${participantCount}`, margin.left, 16);
+    }
+
+    function showResults() {
+      state.momentum = 0;
+      const gainTrials = state.trials.filter(t => t.condition === 'gain').length;
+      const lossTrials = state.trials.filter(t => t.condition === 'loss').length;
+      const knownChoices = state.trials.filter(t => t.choice === 'known').length;
+      const ambiguousChoices = state.trials.filter(t => t.choice === 'ambiguous').length;
+
+      document.getElementById('resultTrials').textContent = TOTAL_TRIALS;
+      document.getElementById('resultAssignedCondition').textContent = state.trials[0]?.condition || '-';
+      document.getElementById('gainCount').textContent = gainTrials;
+      document.getElementById('lossCount').textContent = lossTrials;
+      document.getElementById('knownCount').textContent = knownChoices;
+      document.getElementById('ambiguousCount').textContent = ambiguousChoices;
+
+      showScreen('results');
+      uploadDataToGoogleSheet().then(() => {
+        setTimeout(() => {
+          loadAverageDataAndDrawChart();
+        }, 1500);
+      });
     }
 
     function downloadData() {
